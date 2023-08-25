@@ -8,6 +8,7 @@ use App\Traits\Uuid;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -20,7 +21,7 @@ class User extends Authenticatable implements JWTSubject
      *
      * @var array<int, string>
      */
-protected $fillable = [
+    protected $fillable = [
         'name',
         'username',
         'email',
@@ -67,5 +68,15 @@ protected $fillable = [
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    /**
+     * Get all of the tasks for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tasks(): HasMany
+    {
+        return $this->hasMany(Task::class);
     }
 }
