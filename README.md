@@ -42,6 +42,10 @@ Step 7: Run the following command to set JWT_SECRET in the .env file
 ```bash
   php artisan jwt:secret
 ```
+Then, run the command below to migrate database.
+```bash
+  php artisan migrate
+```
 
 Step 8: Update the .env file with your GOOGLE_CLIENT_ID and SECRET to enable OAuth2 sign and register with Google. you can do that https://console.cloud.google.com/. In your .env file set the following with the right credentials
 ```bash
