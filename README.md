@@ -1,66 +1,68 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Task API with JWT
 
-## About Laravel
+This is a Laravel project that shows how to use JSON Web token for API Tokenization. Implemenation user authentication and authorization as well as Task CRUD functionality. 
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+NOTE: You must have PHP >=8.2, composer and Mysql before you can execute this project
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Documentation
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Step 1: Clone git repo
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+  git clone git@github.com:Guzbyte-tech/Simple_jwt_auth_with_laravel.git
+```
+Step 2: cd into the project
+```bash
+  cd Simple_jwt_auth_with_laravel
+```
+Step 3: Run the composer install command
+```bash
+  composer install
+```
+Step 4: Copy and setup .env file
+```bash
+  cp .env.example .env
+```
+Step 5: Generate Application key
+```bash
+  php artisan key:generate
+```
 
-## Laravel Sponsors
+Step 6: Create Database and update database credentials in .env file
+```bash
+  DB_DATABASE=interview
+  DB_USERNAME=root
+  DB_PASSWORD=
+```
+Step 7: Run the following command to set JWT_SECRET in the .env file
+```bash
+  php artisan jwt:secret
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Step 8: Update the .env file with your GOOGLE_CLIENT_ID and SECRET to enable OAuth2 sign and register with Google. you can do that https://console.cloud.google.com/. In your .env file set the following with the right credentials
+```bash
+  GOOGLE_CLIENT_ID="xxxxx"
+  GOOGLE_CLIENT_SECRET="xxxx"
+```
+(Optional only on localhost)
+Then goto terminal and serve Application using the command 
+```bash
+  php artisan serve
+```
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+Step 9: Since this is on a local server set Google Callback uri to http://127.0.0.1:8000/api/v1/google/callback .
+To test on live server replace http://127.0.0.1:8000 with e.g https://example.com
 
-## Contributing
+Step 9: Run the command below to generate swagger Documentation.
+```bash
+  php artisan l5-swagger:generate
+``` 
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Goto http://127.0.0.1:8000/api/v1/documentation to view API documentation with swagger.
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+THATS IT :)
