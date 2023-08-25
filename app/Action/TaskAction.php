@@ -96,6 +96,15 @@ class TaskAction
      *
      */
     static function update(User $user, $id, $title, $description){
+        $task = Task::find($id);
+        if(is_null($task)){
+            return [
+                "status" => "error",
+                "statusCode" => 404,
+                "error" => true,
+                "message" => "task not found"
+            ];
+        }
         if(!self::checkTaskOwnership($user->id, $id)){
             return [
                 "status" => "error",
@@ -104,7 +113,6 @@ class TaskAction
                 "message" => "task does not belong to you"
             ];
         }
-        $task = Task::find($id);
         DB::beginTransaction();
         try {
             $task->update([
@@ -139,6 +147,15 @@ class TaskAction
      *
      */
     static function delete(User $user, $id){
+        $task = Task::find($id);
+        if(is_null($task)){
+            return [
+                "status" => "error",
+                "statusCode" => 404,
+                "error" => true,
+                "message" => "task not found"
+            ];
+        }
         if(!self::checkTaskOwnership($user->id, $id)){
             return [
                 "status" => "error",
@@ -147,7 +164,7 @@ class TaskAction
                 "message" => "task does not belong to you"
             ];
         }
-        $task = Task::find($id);
+        
         $task->delete();
         $response = [
             "status" => "success",

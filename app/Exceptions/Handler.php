@@ -2,8 +2,9 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
@@ -25,6 +26,14 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (Throwable $e) {
             //
+        });
+        $this->renderable(function (TokenBlacklistedException $e) {
+            return response()->json([
+                "status" => 401,
+                "error" => true,
+                "message" => "Token Expired"
+            ], 401);
+            // return response()->json("Too many attempt", 429);
         });
     }
 }

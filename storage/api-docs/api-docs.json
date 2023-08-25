@@ -1,0 +1,420 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Task Api Documentation",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/user": {
+            "get": {
+                "summary": "Get user Details",
+                "description": "This endpoint returns the full details of the authenticated user.",
+                "operationId": "069866150be4b975d248c35627c94fdb",
+                "responses": {
+                    "200": {
+                        "description": "User details retrieved successfully"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    },
+                    "401": {
+                        "description": "Unauthorized request"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/register": {
+            "post": {
+                "summary": "Register a new user",
+                "operationId": "d4406918bcaadee722ff95967b0f5eb2",
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "query",
+                        "description": "Username of the user",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of the user",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "User's email",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "User's password",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password_confirmation",
+                        "in": "query",
+                        "description": "Confirm user password",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Registered successfully"
+                    },
+                    "422": {
+                        "description": "Unprocessable entity (validation error)"
+                    },
+                    "401": {
+                        "description": "invalid Credentials"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                }
+            }
+        },
+        "/api/v1/login": {
+            "post": {
+                "summary": "Authenticate user and generate JWT token",
+                "operationId": "44492466f6f09531fda5631ba47eede8",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "User's email",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "User's password",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Login successful"
+                    },
+                    "422": {
+                        "description": "Unprocessable entity (validation error)"
+                    },
+                    "401": {
+                        "description": "invalid Credentials"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                }
+            }
+        },
+        "/api/v1/logout": {
+            "post": {
+                "summary": "Log the user out",
+                "operationId": "fda404a1a8e47acf94827c4d4dce85ab",
+                "responses": {
+                    "200": {
+                        "description": "User Logout successful"
+                    },
+                    "422": {
+                        "description": "Unprocessable entity (validation error)"
+                    },
+                    "401": {
+                        "description": "Unauthorized request"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/refresh-token": {
+            "get": {
+                "summary": "Refresh the user token",
+                "operationId": "48cbc4039286502b107cff473f419688",
+                "responses": {
+                    "200": {
+                        "description": "Token refreshed"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    },
+                    "401": {
+                        "description": "Unauthorized request"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/google/redirect": {
+            "get": {
+                "summary": "Initiate sigin-in or register with Google",
+                "description": "This endpoint returns a redirect_to url which you redirect to user to select the google account to sign-in with. This will trigger the callback url which will create/login the user and automatically generate a token for the user",
+                "operationId": "7e284670b902567a311863afa57d38fe",
+                "responses": {
+                    "200": {
+                        "description": "Sigin/register with google initiated successfully"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    },
+                    "401": {
+                        "description": "Unauthorized request"
+                    }
+                }
+            }
+        },
+        "/api/v1/tasks": {
+            "get": {
+                "summary": "Get user tasks",
+                "description": "this endpoint returns all tasks created by the user. remember to pass the Bearer token in the header to authenticate the request.",
+                "operationId": "6b4b4140b757769d5928c599740d6ec9",
+                "responses": {
+                    "200": {
+                        "description": "User details retrieved successfully"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    },
+                    "401": {
+                        "description": "Unauthorized request"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/tasks/create-task": {
+            "post": {
+                "summary": "Create a new task",
+                "description": "This endpoint creates a new task for the user",
+                "operationId": "f751a79a5a1cdf1566e6bc13cab83c04",
+                "parameters": [
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "The title of the task",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "The description of the task",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Task created successfully"
+                    },
+                    "422": {
+                        "description": "Unprocessable entity (validation error)"
+                    },
+                    "401": {
+                        "description": "unauthorized request"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/tasks/show/{id}": {
+            "get": {
+                "summary": "View a task",
+                "description": "This endpoint shows details of a particular task",
+                "operationId": "6fb41b2f9d4c14ac038297d49ed4725d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The ID of the task to view",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Task created successfully"
+                    },
+                    "422": {
+                        "description": "Unprocessable entity (validation error)"
+                    },
+                    "401": {
+                        "description": "unauthorized request"
+                    },
+                    "404": {
+                        "description": "Task not found"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/tasks/update/{id}": {
+            "patch": {
+                "summary": "Update a task",
+                "description": "Call this endpoint to update a task",
+                "operationId": "df456ada72642b744f93ac3ca88a1cea",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The ID of the task to update",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "Task title",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "Task description",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Task updated successfully"
+                    },
+                    "422": {
+                        "description": "Unprocessable entity (validation error)"
+                    },
+                    "401": {
+                        "description": "unauthorized request"
+                    },
+                    "404": {
+                        "description": "Task not found"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/tasks/delete/{id}": {
+            "delete": {
+                "summary": "Delete a task",
+                "description": "Call this endpoint to delete a task",
+                "operationId": "e2ba5141a8b5ec2ad4b3990a99f71079",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The ID of the task to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Task deleted successfully"
+                    },
+                    "422": {
+                        "description": "Unprocessable entity (validation error)"
+                    },
+                    "401": {
+                        "description": "unauthorized request"
+                    },
+                    "404": {
+                        "description": "Task not found"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}

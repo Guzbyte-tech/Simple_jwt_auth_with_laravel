@@ -11,6 +11,16 @@ use Laravel\Socialite\Facades\Socialite;
 
 class OAuth2Controller extends Controller
 {
+     /**
+     * @OA\Get(
+     *     path="/api/v1/google/redirect",
+     *     summary="Initiate sigin-in or register with Google",
+     *     description="This endpoint returns a redirect_to url which you redirect to user to select the google account to sign-in with. This will trigger the callback url which will create/login the user and automatically generate a token for the user",
+     *     @OA\Response(response="200", description="Sigin/register with google initiated successfully"),
+     *     @OA\Response(response="400", description="Invalid request"),
+     *     @OA\Response(response="401", description="Unauthorized request"),
+     * )
+     */
     public function redirect()
     {
         return response([

@@ -18,9 +18,10 @@ use App\Http\Controllers\Apis\TaskController;
 |
 */
 
-
-Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
+Route::post('login', [AuthController::class, 'login']);
+Route::post('logout', [AuthController::class, 'logout']);
+Route::get('refresh-token', [AuthController::class, 'refreshToken']);
 Route::get('google/redirect', [OAuth2Controller::class, 'redirect']);
 Route::get('google/callback', [OAuth2Controller::class, 'handleCallback']);
 
